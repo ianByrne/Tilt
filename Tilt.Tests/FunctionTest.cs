@@ -20,7 +20,7 @@ namespace Tilt.Tests
         /// <param name="sessionAttributes">Any attributes in the session</param>
         /// <param name="intentRequest">The request type and any slot details</param>
         /// <returns>The test SkillRequest</returns>
-        private static SkillRequest BuildSkillRequest(bool newSession, Dictionary<string, object> sessionAttributes, IntentRequest intentRequest)
+        private static SkillRequest BuildSkillRequest(bool newSession, Dictionary<string, object> sessionAttributes, Intent intent)
         {
             return new SkillRequest()
             {
@@ -39,7 +39,14 @@ namespace Tilt.Tests
                         AccessToken = "TESTACCESSTOKEN"
                     }
                 },
-                Request = intentRequest,
+                Request = new IntentRequest
+                {
+                    Type = "IntentRequest",
+                    RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
+                    Intent = intent,
+                    Locale = "en-GB",
+                    Timestamp = DateTime.UtcNow
+                },
                 Context = new Context()
                 {
                     AudioPlayer = new PlaybackState()
@@ -116,19 +123,12 @@ namespace Tilt.Tests
             */
 
             Dictionary<string, object> sessionAttributes = new Dictionary<string, object>();
-            IntentRequest intentRequest = new IntentRequest
+            Intent intent = new Intent
             {
-                Type = "IntentRequest",
-                RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
-                Intent = new Intent()
-                {
-                    Name = "GetTiltIntent"
-                },
-                Locale = "en-GB",
-                Timestamp = DateTime.Parse("2017-08-09T19:42:02Z")
+                Name = "GetTiltIntent"
             };
 
-            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intentRequest);
+            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intent);
 
             var function = new Function();
             var context = new TestLambdaContext();
@@ -200,30 +200,23 @@ namespace Tilt.Tests
             */
 
             Dictionary<string, object> sessionAttributes = new Dictionary<string, object>();
-            IntentRequest intentRequest = new IntentRequest
+            Intent intent = new Intent
             {
-                Type = "IntentRequest",
-                RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
-                Intent = new Intent()
+                Name = "AddToTiltIntent",
+                Slots = new Dictionary<string, Slot>()
                 {
-                    Name = "AddToTiltIntent",
-                    Slots = new Dictionary<string, Slot>()
+                    {
+                        "TiltItems",
+                        new Slot()
                         {
-                            {
-                                "TiltItems",
-                                new Slot()
-                                {
-                                    Name = "TiltItems",
-                                    Value = "eggs"
-                                }
-                            }
+                            Name = "TiltItems",
+                            Value = "eggs"
                         }
-                },
-                Locale = "en-GB",
-                Timestamp = DateTime.Parse("2017-08-09T19:42:02Z")
+                    }
+                }
             };
 
-            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intentRequest);
+            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intent);
 
             var function = new Function();
             var context = new TestLambdaContext();
@@ -297,20 +290,13 @@ namespace Tilt.Tests
                 { "AddToTiltIntent", "eggs" }
             };
 
-            IntentRequest intentRequest = new IntentRequest
+            Intent intent = new Intent
             {
-                Type = "IntentRequest",
-                RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
-                Intent = new Intent()
-                {
-                    Name = "AMAZON.YesIntent",
-                    Slots = new Dictionary<string, Slot>()
-                },
-                Locale = "en-GB",
-                Timestamp = DateTime.Parse("2017-08-09T19:42:02Z")
+                Name = "AMAZON.YesIntent",
+                Slots = new Dictionary<string, Slot>()
             };
 
-            SkillRequest skillRequest = BuildSkillRequest(false, sessionAttributes, intentRequest);
+            SkillRequest skillRequest = BuildSkillRequest(false, sessionAttributes, intent);
 
             var function = new Function();
             var context = new TestLambdaContext();
@@ -378,19 +364,12 @@ namespace Tilt.Tests
 
             Dictionary<string, object> sessionAttributes = new Dictionary<string, object>();
 
-            IntentRequest intentRequest = new IntentRequest
+            Intent intent = new Intent
             {
-                Type = "IntentRequest",
-                RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
-                Intent = new Intent()
-                {
-                    Name = "ClearTiltIntent"
-                },
-                Locale = "en-GB",
-                Timestamp = DateTime.Parse("2017-08-09T19:42:02Z")
+                Name = "ClearTiltIntent"
             };
 
-            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intentRequest);
+            SkillRequest skillRequest = BuildSkillRequest(true, sessionAttributes, intent);
 
             var function = new Function();
             var context = new TestLambdaContext();
@@ -464,20 +443,13 @@ namespace Tilt.Tests
                 { "ClearTiltIntent", true }
             };
 
-            IntentRequest intentRequest = new IntentRequest
+            Intent intent = new Intent
             {
-                Type = "IntentRequest",
-                RequestId = "EdwRequestId.00000000-0000-0000-0000-000000000000",
-                Intent = new Intent()
-                {
-                    Name = "AMAZON.YesIntent",
-                    Slots = new Dictionary<string, Slot>()
-                },
-                Locale = "en-GB",
-                Timestamp = DateTime.Parse("2017-08-09T19:42:02Z")
+                Name = "AMAZON.YesIntent",
+                Slots = new Dictionary<string, Slot>()
             };
 
-            SkillRequest skillRequest = BuildSkillRequest(false, sessionAttributes, intentRequest);
+            SkillRequest skillRequest = BuildSkillRequest(false, sessionAttributes, intent);
 
             var function = new Function();
             var context = new TestLambdaContext();
