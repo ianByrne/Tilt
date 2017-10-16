@@ -1,0 +1,28 @@
+AddToTiltIntent add {TiltItems}
+AddToTiltIntent add {TiltItems} to shopping list
+AddToTiltIntent add {TiltItems} to the shopping list
+AddToTiltIntent add {TiltItems} to the list
+GetTiltIntent list
+GetTiltIntent shopping list
+GetTiltIntent the shopping list
+GetTiltIntent the list
+GetTiltIntent what's on my shopping list
+GetTiltIntent what's on the shopping list
+GetTiltIntent what's on the list
+GetTiltIntent what's on my list
+GetTiltIntent what is on my shopping list
+GetTiltIntent what is on the shopping list
+GetTiltIntent what is on the list
+GetTiltIntent what is on my list
+ClearTiltIntent clear my shopping list
+ClearTiltIntent clear my list
+ClearTiltIntent clear the shopping list
+ClearTiltIntent clear the list
+ClearTiltIntent empty my shopping list
+ClearTiltIntent empty my list
+ClearTiltIntent empty the shopping list
+ClearTiltIntent empty the list
+ClearTiltIntent delete my shopping list
+ClearTiltIntent delete my list
+ClearTiltIntent delete the shopping list
+ClearTiltIntent delete the list
