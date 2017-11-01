@@ -17,6 +17,7 @@ namespace Tilt
         public static SkillRequest Input;
         public static string AccessToken;
         public static string GoogleApplicationName;
+        public static string GoogleKey;
         public static string SpreadsheetId;
         public static string UserId;
         public static ITiltDatabase TiltDatabase;
@@ -33,10 +34,10 @@ namespace Tilt
             AccessToken = input.Session.User.AccessToken;
             UserId = input.Session.User.UserId;
             SpreadsheetId = Environment.GetEnvironmentVariable("spreadsheetId");
+            GoogleKey = Environment.GetEnvironmentVariable("google_serviceaccount_key");
             _context = context;
 
             string session = JsonConvert.SerializeObject(Input.Session.Attributes);
-            Log(session).Wait();
         }
 
         /// <summary>

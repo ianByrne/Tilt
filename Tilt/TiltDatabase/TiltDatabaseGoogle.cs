@@ -28,7 +28,12 @@ namespace Tilt
             }
             else
             {
-                var credential = GoogleCredential.FromAccessToken(Utils.AccessToken).CreateScoped(_scopes);
+                // I have no idea what happened, but apparently the later versions of Google.Apis.Sheets.v4
+                // don't work on <= netstandard1.3 (the limits of Lambda). I am PRETTY BLOODY SURE however
+                // that it was working fine until it randomly wasn't. Either way, reverted down to an earlier
+                // version and that means we need to use FromJson instead of FromAccessToken
+                //var credential = GoogleCredential.FromAccessToken(Utils.AccessToken).CreateScoped(_scopes);
+                var credential = GoogleCredential.FromJson(Utils.GoogleKey).CreateScoped(_scopes);
 
                 _service = new SheetsService(new BaseClientService.Initializer()
                 {
